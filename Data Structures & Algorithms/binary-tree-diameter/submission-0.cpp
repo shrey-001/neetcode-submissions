@@ -12,10 +12,20 @@
 
 class Solution {
 public:
-    int maxDepth(TreeNode* root) {
-        if(root == NULL) return 0;
-        int leftDepth = maxDepth(root->left);
-        int rightDepth = maxDepth(root->right);
-        return 1+ max(leftDepth, rightDepth);
+    
+    int dfs(TreeNode* root, int& ans){
+        if(root==NULL) return 0;
+        int leftHeight=dfs(root->left, ans);
+        int rightHeight=dfs(root->right,ans);
+
+        int curr = leftHeight +rightHeight;
+        ans = max(ans, curr);
+        return 1+max(leftHeight, rightHeight);
+
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+        int ans =0 ;
+        dfs(root, ans);
+        return ans;
     }
 };
